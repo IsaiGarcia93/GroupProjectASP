@@ -49,11 +49,23 @@ namespace GroupProjectASP.Data
                 new Order
                 {
                     OrderID = 1,
+                    FirstName = "Isai",
+                    LastName = "Gonzalez",
+                    Address = "123 Adams St.",
+                    City = "Lincoln",
+                    State = "NE",
+                    Zip = "68507",
                     OrderDate = new DateTime (2022,4,5),
                     TotalPrice = 15000.00
                 }, new Order
                 {
                     OrderID = 2,
+                    FirstName = "Kris",
+                    LastName = "Haskin",
+                    Address = "123 Garland St.",
+                    City = "Lincoln",
+                    State = "NE",
+                    Zip = "68507",
                     OrderDate = new DateTime(2022, 6, 25),
                     TotalPrice = 5000.00
                 });
@@ -61,7 +73,7 @@ namespace GroupProjectASP.Data
                 builder.Entity<OrderDetails>().HasData(
                 new OrderDetails
                 {
-                    OrderID = 1,
+                    OrderID = 1,                    
                     ItemID = 2,
                     Quantity = 1,
                     Amount = 15000.00
