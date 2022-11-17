@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<GroupProjectASP.Models.Item>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "AddtoCart";
 }
 
-<h1>Index</h1>
+<h1>AddtoCart</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -46,12 +46,12 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <img src="@item.ImageUpload" height="100" width="100"/>
+                @Html.DisplayFor(modelItem => item.ImageUpload)
             </td>
             <td>
-                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.ItemID">Edit</a> |
-                <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.ItemID">Details</a> |
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ItemID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ItemID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ItemID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ItemID">Delete</a>
             </td>
         </tr>
 }

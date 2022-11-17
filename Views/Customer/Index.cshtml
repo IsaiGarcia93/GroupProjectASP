@@ -1,0 +1,30 @@
+﻿@model IEnumerable<GroupProjectASP.Models.Item>
+
+@{
+    ViewData["Title"] = "Customer Page";
+}
+
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        @foreach (var item in Model)
+        {
+        <div class="col-lg-4 col-sm-6">
+            <div class="card" style="width: 19rem;">
+                <img src=@item.ImageUpload class="card-img-top" alt=@item.Title width="200" height="350">
+                <div class="card-body" style="text-align: center">
+                    <h5 class="card-title">@item.Title</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Description: </b>@item.Description</li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Price: </b>@item.Price.ToString("c2")</li>
+                </ul>
+                <div class="card-body" style="text-align: right">
+                    <a class="btn btn-success" asp-controller="Customer" asp-action="AddtoCart" asp-route-id="@item.ItemID">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
