@@ -34,10 +34,11 @@ namespace GroupProjectASP
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddTransient<SeedAdmin>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedAdmin seed)
         {
             if (env.IsDevelopment())
             {
@@ -53,6 +54,8 @@ namespace GroupProjectASP
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            seed.SeedAdminUser();
 
             app.UseAuthentication();
             app.UseAuthorization();
