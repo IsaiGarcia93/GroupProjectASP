@@ -10,7 +10,7 @@
         {
         <div class="col-lg-4 col-sm-6">
             <div class="card" style="width: 19rem;">
-                <img src=@item.ImageUpload class="card-img-top" alt=@item.Title width="200" height="350">
+                <img src="@("~/Images/" + item.ImageUpload)" asp-append-version="true" class="card-img-top" alt=@item.Title width="200" height="350">
                 <div class="card-body" style="text-align: center">
                     <h5 class="card-title">@item.Title</h5>
                 </div>

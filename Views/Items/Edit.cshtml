@@ -4,9 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Item</h4>
+<h1>Edit <small>Item</small></h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateOfCreation" class="control-label"></label>
-                <input asp-for="DateOfCreation" class="form-control" />
+                <input type="date" asp-for="DateOfCreation" class="form-control" />
                 <span asp-validation-for="DateOfCreation" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,19 +32,18 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUpload" class="control-label"></label>
-                <input asp-for="ImageUpload" class="form-control" />
-                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+                <label asp-for="Image" class="control-label"></label>
+                <br />
+                <input asp-for="Image" accept="image/*" />
+                <span asp-validation-for="Image" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-dark">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

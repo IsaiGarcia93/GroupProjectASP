@@ -4,9 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Item</h4>
+<h1>Create <small>Item</small></h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateOfCreation" class="control-label"></label>
-                <input asp-for="DateOfCreation" class="form-control" />
+                <input type="date" asp-for="DateOfCreation" class="form-control" />
                 <span asp-validation-for="DateOfCreation" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -38,9 +36,10 @@
                 <input asp-for="Image" accept="image/*" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" /> |
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                <a asp-action="Index" class="btn btn-dark">Back to List</a>
             </div>
         </form>
     </div>
