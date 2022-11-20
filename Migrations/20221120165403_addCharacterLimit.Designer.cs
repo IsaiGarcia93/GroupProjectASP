@@ -4,14 +4,16 @@ using GroupProjectASP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GroupProjectASP.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221120165403_addCharacterLimit")]
+    partial class addCharacterLimit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,6 +36,7 @@ namespace GroupProjectASP.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("ImageUpload")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
@@ -53,7 +56,7 @@ namespace GroupProjectASP.Migrations
                             ItemID = 1,
                             DateOfCreation = new DateTime(1950, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Beautiful Art Work",
-                            ImageUpload = "Art1.jpg",
+                            ImageUpload = "~/wwwroot/lib/Images/Art1.jpg",
                             Price = 5000.0,
                             Title = "The Scream"
                         },
@@ -62,7 +65,7 @@ namespace GroupProjectASP.Migrations
                             ItemID = 2,
                             DateOfCreation = new DateTime(1650, 8, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Amazing Art Work",
-                            ImageUpload = "Art2.jpg",
+                            ImageUpload = "~/wwwroot/lib/Images/Art2.jpg",
                             Price = 15000.0,
                             Title = "The Woman on the Wall"
                         });

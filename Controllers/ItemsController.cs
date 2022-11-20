@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroupProjectASP.Data;
 using GroupProjectASP.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace GroupProjectASP.Controllers
 {
     public class ItemsController : Controller
     {
         private readonly AppDBContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ItemsController(AppDBContext context)
+        public ItemsController(AppDBContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: Items
@@ -54,10 +58,22 @@ namespace GroupProjectASP.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemID,Title,Description,DateOfCreation,Price,ImageUpload")] Item item)
+        public async Task<IActionResult> Create([Bind("ItemID,Title,Description,DateOfCreation,Price,Image")] Item item)
         {
             if (ModelState.IsValid)
             {
+                //Save image to images folder
+                string rootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(item.Image.FileName);
+                string extension = Path.GetExtension(item.Image.FileName);
+                item.ImageUpload = fileName = fileName + extension;
+                string path = Path.Combine(rootPath + "/Images/", fileName);
+
+                using (var fileStream = new FileStream(path,FileMode.Create))
+                {
+                    await item.Image.CopyToAsync(fileStream);
+                }
+
                 _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -140,6 +156,14 @@ namespace GroupProjectASP.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var item = await _context.Items.FindAsync(id);
+
+            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "Images", item.ImageUpload);
+
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
+
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

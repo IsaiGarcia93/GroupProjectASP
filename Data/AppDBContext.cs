@@ -34,7 +34,7 @@ namespace GroupProjectASP.Data
                     Description = "Beautiful Art Work",
                     DateOfCreation = new DateTime(1950,5,16),
                     Price = 5000.00,
-                    ImageUpload = "~/wwwroot/lib/Images/Art1.jpg"
+                    ImageUpload = "Art1.jpg"
                 },
                 new Item {
                     ItemID = 2,
@@ -42,7 +42,7 @@ namespace GroupProjectASP.Data
                     Description = "Amazing Art Work",
                     DateOfCreation = new DateTime(1650,8,6),
                     Price = 15000.00,
-                    ImageUpload = "~/wwwroot/lib/Images/Art2.jpg"
+                    ImageUpload = "Art2.jpg"
                 });
             
             builder.Entity<Order>().HasData(
