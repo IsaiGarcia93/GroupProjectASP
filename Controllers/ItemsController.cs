@@ -102,7 +102,7 @@ namespace GroupProjectASP.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemID,Title,Description,DateOfCreation,Price,ImageUpload")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemID,Title,Description,DateOfCreation,Price,ImageUpload,Image")] Item item)
         {
             if (id != item.ItemID)
             {
@@ -111,6 +111,27 @@ namespace GroupProjectASP.Controllers
 
             if (ModelState.IsValid)
             {
+                var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "Images", item.ImageUpload);
+
+                if(item.ImageUpload != null)
+                {
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+
+                    string rootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(item.Image.FileName);
+                    string extension = Path.GetExtension(item.Image.FileName);
+                    item.ImageUpload = fileName = fileName + extension;
+                    string path = Path.Combine(rootPath + "/Images/", fileName);
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await item.Image.CopyToAsync(fileStream);
+                    }
+                }
+
                 try
                 {
                     _context.Update(item);
