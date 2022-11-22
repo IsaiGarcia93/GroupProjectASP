@@ -9,9 +9,11 @@ using GroupProjectASP.Data;
 using GroupProjectASP.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GroupProjectASP.Controllers
 {
+    [Authorize]
     public class ItemsController : Controller
     {
         private readonly AppDBContext _context;

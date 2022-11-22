@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroupProjectASP.Data;
 using GroupProjectASP.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GroupProjectASP.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly AppDBContext _context;

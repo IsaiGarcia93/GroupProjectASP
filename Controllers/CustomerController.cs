@@ -1,6 +1,7 @@
 ﻿using GroupProjectASP.Data;
 using GroupProjectASP.Models;
 using GroupProjectASP.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,6 +26,7 @@ namespace GroupProjectASP.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> AddtoCart(Item item)
         {
             return View();
