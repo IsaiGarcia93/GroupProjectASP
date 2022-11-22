@@ -4,11 +4,9 @@
     ViewData["Title"] = "AddtoCart";
 }
 
-<h1>AddtoCart</h1>
+<h1>Shopping Cart</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -48,8 +46,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ImageUpload)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ItemID">Edit</a> |
+            <td>|
                 <a asp-action="Details" asp-route-id="@item.ItemID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ItemID">Delete</a>
             </td>

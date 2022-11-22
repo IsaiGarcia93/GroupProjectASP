@@ -14,7 +14,7 @@ namespace GroupProjectASP.Controllers
     public class CustomerController : Controller
     {
         private readonly AppDBContext _context;
-
+        List<Item> itemList = new List<Item>();
         public CustomerController(AppDBContext context)
         {
             _context = context;
@@ -24,12 +24,17 @@ namespace GroupProjectASP.Controllers
         {
             return View(await _context.Items.ToListAsync());
         }
-
+        
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> AddtoCart(Item item)
-        {
-            return View();
+        public async Task<IActionResult> AddtoCart(int id)
+        {//need saving of cart
+            Item cartItem = new Item();
+            cartItem = await _context.Items.FindAsync(id);
+            itemList.Add(cartItem);
+            IEnumerable<Item> cart = itemList;
+
+            return View(cart);
         }
     }
 }
