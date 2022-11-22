@@ -27,6 +27,70 @@ namespace GroupProjectASP.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        //list users
+        [HttpGet]
+        public IActionResult ListUsers()
+        {
+
+            var users = userManager.Users;
+            return View(users);
+        }
+        //Edit listed users
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+
+            };
+
+            return View(model);
+        }
+        //post edited user
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.Id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+
+                var result = await userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+
+                return View(model);
+            }
+        }
+
 
         [HttpGet]
         public IActionResult Register()
