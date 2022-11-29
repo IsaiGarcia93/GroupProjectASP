@@ -1,5 +1,6 @@
 ﻿using GroupProjectASP.Models;
 using GroupProjectASP.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,14 +30,15 @@ namespace GroupProjectASP.Controllers
         }
         //list users
         [HttpGet]
+        [Authorize]
         public IActionResult ListUsers()
         {
-
             var users = userManager.Users;
             return View(users);
         }
         //Edit listed users
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> EditUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
@@ -60,6 +62,7 @@ namespace GroupProjectASP.Controllers
         }
         //post edited user
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
             var user = await userManager.FindByIdAsync(model.Id);
