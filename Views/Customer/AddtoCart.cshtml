@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<GroupProjectASP.Models.Item>
 
 @{
-    ViewData["Title"] = "AddtoCart";
+    ViewData["Title"] = "Add to Cart";
 }
 
 <h1>Shopping Cart</h1>
@@ -14,7 +14,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
-            </th>
+            </th>            
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
@@ -35,12 +35,13 @@
                     @item.Price.ToString("c2")
                 </td>
                 <td>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ItemID">Delete</a>
+                    <a class="btn btn-danger" asp-action="DeleteItem" asp-controller="Customer" asp-route-id="@item.ItemID">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
 <div class="card-body" style="text-align: right">
     <a class="btn btn-secondary" asp-controller="Customer" asp-action="" asp-route-id="">Keep Buying</a> |
     <a class="btn btn-success" asp-controller="Customer" asp-action="" asp-route-id="">Place Order</a>

@@ -8,7 +8,10 @@ namespace GroupProjectASP.ViewModels
 {
     public class CartViewModel
     {
+        public Item Item { get; set; }
         public IEnumerable<Item> Items { get; set; }
         public OrderDetails OrderDetails { get; set; }
+        public int Quantity { get; set; }
+
     }
 }

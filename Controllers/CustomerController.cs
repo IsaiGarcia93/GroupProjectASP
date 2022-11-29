@@ -17,6 +17,7 @@ namespace GroupProjectASP.Controllers
         private readonly AppDBContext _context;
         List<Item> itemList = new List<Item>();
         //List<Item> cart = new List<Item>();
+
         public CustomerController(AppDBContext context)
         {
             _context = context;
@@ -26,21 +27,22 @@ namespace GroupProjectASP.Controllers
         {
             return View(await _context.Items.ToListAsync());
         }
-        
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> AddtoCart(int? id)
         {//need saving of cart
-            
+
             List<Item> cart = new List<Item>();
-            
+
             if (id == null)
             {
                 cart = GetCart();
                 return View("AddToCart", cart);
             }
             else
-            {               
+            {
+                cart = GetCart();
                 Item cartItem = new Item();
                 cartItem = await _context.Items.FindAsync(id);
 
@@ -48,9 +50,23 @@ namespace GroupProjectASP.Controllers
 
                 SaveCart(cart);
 
+
                 return View(cart = GetCart());
             }
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            List<Item> cart = GetCart();
+            Item item = await _context.Items.FindAsync(id);
+
+            cart.Remove(item);
+
+            SaveCart(cart);
+
+            return RedirectToAction("AddToCart", cart);
         }
 
         private List<Item> GetCart()
