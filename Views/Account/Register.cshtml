@@ -25,7 +25,8 @@
                 <input asp-for="ConfirmPassword" class="form-control col-lg-4" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Register</button> |
+            <a asp-action="ListUsers" class="btn btn-dark">Back to List</a>
         </form>
     </div>
 </div>
