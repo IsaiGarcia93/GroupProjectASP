@@ -34,6 +34,8 @@ namespace GroupProjectASP
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMemoryCache();
+            services.AddSession();
             services.AddTransient<SeedAdmin>();
         }
 
@@ -56,7 +58,7 @@ namespace GroupProjectASP
             app.UseRouting();
 
             seed.SeedAdminUser();
-
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 
