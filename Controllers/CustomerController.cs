@@ -29,19 +29,28 @@ namespace GroupProjectASP.Controllers
         
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> AddtoCart(int id)
+        public async Task<IActionResult> AddtoCart(int? id)
         {//need saving of cart
-
-            List<Item> cart = GetCart();
-            Item cartItem = new Item();
-            cartItem = await _context.Items.FindAsync(id);
-
-            cart.Add(cartItem);
-
-            SaveCart(cart);
             
+            List<Item> cart = new List<Item>();
             
-            return View(cart = GetCart());
+            if (id == null)
+            {
+                cart = GetCart();
+                return View("AddToCart", cart);
+            }
+            else
+            {               
+                Item cartItem = new Item();
+                cartItem = await _context.Items.FindAsync(id);
+
+                cart.Add(cartItem);
+
+                SaveCart(cart);
+
+                return View(cart = GetCart());
+            }
+
         }
 
         private List<Item> GetCart()
