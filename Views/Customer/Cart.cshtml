@@ -1,0 +1,55 @@
+﻿@model GroupProjectASP.ViewModels.ShoppingCartViewModel
+
+<h1 style="width: 200px; float: left">Cart List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Selected Amount
+            </th>
+            <th>
+                Item
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Subtotal
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+        {
+            <tr>
+                <td>
+                    <img src="@("~/Images/" + item.Item.ImageUpload)" asp-append-version="true" class="card-img-top" alt=@item.Item.Title width="200" height="350">
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @item.Item.Title
+                </td>
+                <td>
+                    @item.Item.Price.ToString("c2")
+                </td>
+                <td>
+                    @((item.Quantity * item.Item.Price).ToString("c2"))
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-action="RemoveItem" asp-controller="Customer">Delete</a>
+                    <a class="btn btn-danger" asp-action="AddToCart" asp-controller="Customer">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-right">Total:</td>
+            <td class="text-right">@Model.CartTotal.ToString("c2")</td>
+        </tr>
+    </tfoot>
+</table>
