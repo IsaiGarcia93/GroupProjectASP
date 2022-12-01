@@ -15,70 +15,52 @@ namespace GroupProjectASP.Controllers
     public class CustomerController : Controller
     {
         private readonly AppDBContext _context;
-        List<Item> itemList = new List<Item>();
-        //List<Item> cart = new List<Item>();
+        private readonly ShoppingCart _shoppingCart;
 
-        public CustomerController(AppDBContext context)
+        public CustomerController(AppDBContext context, ShoppingCart shoppingCart)
         {
             _context = context;
+            _shoppingCart = shoppingCart;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Items.ToListAsync());
         }
 
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> AddtoCart(int? id)
-        {//need saving of cart
+        public ViewResult Cart()
+        {
+            var items = _shoppingCart.GetShoppingCartItems();
+            _shoppingCart.ShoppingCartItems = items;
 
-            List<Item> cart = new List<Item>();
-
-            if (id == null)
+            var cartViewModel = new CartViewModel
             {
-                cart = GetCart();
-                return View("AddToCart", cart);
-            }
-            else
+                ShoppingCart = _shoppingCart,
+                CartTotal = _shoppingCart.GetTotal()
+            };
+
+            return View(cartViewModel);
+        }
+
+        public RedirectToActionResult AddToCart(int id)
+        {
+            var item = _context.Items.FirstOrDefault(c => c.ItemID == id);
+            if(item != null)
             {
-                cart = GetCart();
-                Item cartItem = new Item();
-                cartItem = await _context.Items.FindAsync(id);
-
-                cart.Add(cartItem);
-
-                SaveCart(cart);
-
-
-                return View(cart = GetCart());
+                _shoppingCart.AddToCart(item, 1);
             }
-
+            return RedirectToAction("Cart");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> DeleteItem(int id)
+        public RedirectToActionResult DeleteItem(int id)
         {
-            List<Item> cart = GetCart();
-            Item item = await _context.Items.FindAsync(id);
-
-            cart.Remove(item);
-
-            SaveCart(cart);
-
-            return RedirectToAction("AddToCart", cart);
+            var item = _context.Items.FirstOrDefault(c => c.ItemID == id);
+            if (item != null)
+            {
+                _shoppingCart.RemoveItem(item);
+            }
+            return RedirectToAction("Cart");
         }
-
-        private List<Item> GetCart()
-        {
-            List<Item> cart = HttpContext.Session.GetJson<List<Item>>("Cart") ?? new List<Item>();
-            return cart;
-        }
-
-        private void SaveCart(List<Item> cart)
-        {
-            HttpContext.Session.SetJson("Cart", cart);
-        }
-
     }
 }

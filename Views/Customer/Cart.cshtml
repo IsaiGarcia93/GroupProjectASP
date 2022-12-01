@@ -1,4 +1,4 @@
-﻿@model GroupProjectASP.ViewModels.ShoppingCartViewModel
+﻿@model GroupProjectASP.ViewModels.CartViewModel
 
 <h1 style="width: 200px; float: left">Cart List</h1>
 
@@ -6,10 +6,13 @@
     <thead>
         <tr>
             <th>
-                Selected Amount
+                Item Image
             </th>
             <th>
-                Item
+                Quantity
+            </th>
+            <th>
+                Title
             </th>
             <th>
                 Price
@@ -25,7 +28,7 @@
         {
             <tr>
                 <td>
-                    <img src="@("~/Images/" + item.Item.ImageUpload)" asp-append-version="true" class="card-img-top" alt=@item.Item.Title width="200" height="350">
+                    <img src="@("~/Images/" + item.Item.ImageUpload)" asp-append-version="true" class="card-img-top" alt=@item.Item.Title width="100" height="100">
                 </td>
                 <td>
                     @item.Quantity
@@ -40,15 +43,15 @@
                     @((item.Quantity * item.Item.Price).ToString("c2"))
                 </td>
                 <td>
-                    <a class="btn btn-danger" asp-action="RemoveItem" asp-controller="Customer">Delete</a>
-                    <a class="btn btn-danger" asp-action="AddToCart" asp-controller="Customer">Delete</a>
+                    <a class="btn btn-danger" asp-action="DeleteItem" asp-controller="Customer" asp-route-id="@item.Item.ItemID">Remove</a>
+                    <a class="btn btn-success" asp-action="AddToCart" asp-controller="Customer" asp-route-id="@item.Item.ItemID">Add</a>
                 </td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="4" class="text-right">Total:</td>
+            <td colspan="5" class="text-right">Total:</td>
             <td class="text-right">@Model.CartTotal.ToString("c2")</td>
         </tr>
     </tfoot>

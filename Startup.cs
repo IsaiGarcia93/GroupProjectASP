@@ -1,6 +1,8 @@
 using GroupProjectASP.Data;
+using GroupProjectASP.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -34,9 +36,14 @@ namespace GroupProjectASP
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetCart(sc));
+            
+            services.AddTransient<SeedAdmin>();
+            
             services.AddMemoryCache();
             services.AddSession();
-            services.AddTransient<SeedAdmin>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
