@@ -32,7 +32,9 @@ namespace GroupProjectASP
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDBContext>();
+                
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -40,14 +42,14 @@ namespace GroupProjectASP
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetCart(sc));
             
-            services.AddTransient<SeedAdmin>();
+            services.AddTransient<SeedAdminData>();
             
             services.AddMemoryCache();
             services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedAdmin seed)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -64,10 +66,13 @@ namespace GroupProjectASP
 
             app.UseRouting();
 
-            seed.SeedAdminUser();
+           
+            
             app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            SeedAdminData.Seed(userManager, roleManager);
 
             app.UseEndpoints(endpoints =>
             {

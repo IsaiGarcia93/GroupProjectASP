@@ -30,7 +30,7 @@ namespace GroupProjectASP.Controllers
         }
         //list users
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult ListUsers()
         {
             var users = userManager.Users;

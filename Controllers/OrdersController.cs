@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GroupProjectASP.Controllers
 {
-    [Authorize]
+    
+    
     public class OrdersController : Controller
     {
         private readonly AppDBContext _context;
@@ -20,8 +21,9 @@ namespace GroupProjectASP.Controllers
         {
             _context = context;
         }
-
         // GET: Orders
+       
+
         public async Task<IActionResult> Index()
         {
             return View(await _context.Orders.ToListAsync());

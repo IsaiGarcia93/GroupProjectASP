@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GroupProjectASP.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ItemsController : Controller
     {
         private readonly AppDBContext _context;
