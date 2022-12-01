@@ -62,5 +62,26 @@ namespace GroupProjectASP.Controllers
             }
             return RedirectToAction("Cart");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Checkout()
+        {
+            var items = _shoppingCart.GetShoppingCartItems();
+            _shoppingCart.ShoppingCartItems = items;
+            var titleList = "";
+            foreach (var item in items)
+            {
+                titleList += item.Item.Title + ",";
+            }
+    
+            var total = _shoppingCart.GetTotal();
+            ViewBag.Name = titleList;
+            ViewBag.Total = total;
+     
+
+            return View();
+
+
+        }
     }
 }

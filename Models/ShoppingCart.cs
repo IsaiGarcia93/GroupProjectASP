@@ -35,7 +35,7 @@ namespace GroupProjectASP.Models
 
         public void AddToCart(Item item, int quantity)
         {
-            var shoppingCartItem = _context.ShoppingCartItems.SingleOrDefault(sh => sh.Item.ItemID == item.ItemID 
+            var shoppingCartItem = _context.ShoppingCartItems.SingleOrDefault(sh => sh.Item.ItemID == item.ItemID
                                                                                 && sh.ShoppingCartID == ShoppingCartID);
 
             if (shoppingCartItem == null)

@@ -45,6 +45,7 @@
                 <td>
                     <a class="btn btn-danger" asp-action="DeleteItem" asp-controller="Customer" asp-route-id="@item.Item.ItemID">Remove</a>
                     <a class="btn btn-success" asp-action="AddToCart" asp-controller="Customer" asp-route-id="@item.Item.ItemID">Add</a>
+
                 </td>
             </tr>
         }
@@ -54,5 +55,8 @@
             <td colspan="5" class="text-right">Total:</td>
             <td class="text-right">@Model.CartTotal.ToString("c2")</td>
         </tr>
+
     </tfoot>
+    <a class="btn btn-success" asp-action="Checkout" asp-controller="Customer" asp-route-id="">Checkout</a>
+
 </table>
