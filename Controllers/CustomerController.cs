@@ -64,22 +64,33 @@ namespace GroupProjectASP.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Checkout()
+        public IActionResult Checkout()
         {
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
-            var titleList = "";
-            foreach (var item in items)
+
+            var checkoutViewModel = new CheckoutViewModel
             {
-                titleList += item.Item.Title + ",";
-            }
+                cartItems = _shoppingCart.ShoppingCartItems
+                 
+            };
+
+            //checkoutViewModel = new CheckoutViewModel
+            //{
+            //    order =  
+            //};
+            //foreach (var item in items)
+
+            //{
+            //    titleList.Add(item.Item);
+            //}
     
             var total = _shoppingCart.GetTotal();
-            ViewBag.Name = titleList;
+           // ViewBag.Name = titleList;
             ViewBag.Total = total;
      
 
-            return View();
+            return View(checkoutViewModel);
 
 
         }

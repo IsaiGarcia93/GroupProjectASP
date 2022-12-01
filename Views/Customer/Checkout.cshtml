@@ -1,6 +1,7 @@
-﻿@model GroupProjectASP.Models.Order
+﻿@model GroupProjectASP.ViewModels.CheckoutViewModel
 
 @{
+
     ViewData["Title"] = "Checkout";
 }
 
@@ -8,9 +9,12 @@
     Thank you  @User.Identity.Name
 </h3>
 <h4> Your total is $ @ViewBag.Total</h4>
-<h4>@ViewBag.Name</h4>
+@foreach (var item in Model.cartItems)
+            {
+    <h6> @item.Item.Title </h6>
+            }
 
-<h3></h3>
+<h3>@ViewBag.Name</h3>
 
 <hr />
 <div class="row">
@@ -18,50 +22,50 @@
         <form asp-action="Checkout">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
+                <label asp-for="@Model.order.OrderDate" class="control-label"></label>
+                <input type="date" asp-for="@Model.order.OrderDate" class="form-control" value="@DateTime.Now" />
+                <span asp-validation-for="@Model.order.OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TotalPrice" class="control-label"></label>
-                <input asp-for="TotalPrice" class="form-control" value="@ViewBag.Total" />
-                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                <label asp-for="@Model.order.TotalPrice" class="control-label"></label>
+                <input asp-for="@Model.order.TotalPrice" class="form-control" value="@ViewBag.Total" />
+                <span asp-validation-for="@Model.order.TotalPrice" class="text-danger"></span>
             </div>
             <h4>Shipping Address</h4>
             <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <label asp-for="@Model.order.FirstName" class="control-label"></label>
+                <input asp-for="@Model.order.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.order.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+                <label asp-for="@Model.order.LastName" class="control-label"></label>
+                <input asp-for="@Model.order.LastName" class="form-control" />
+                <span asp-validation-for="@Model.order.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <label asp-for="@Model.order.Address" class="control-label"></label>
+                <input asp-for="@Model.order.Address" class="form-control" />
+                <span asp-validation-for="@Model.order.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
+                <label asp-for="@Model.order.City" class="control-label"></label>
+                <input asp-for="@Model.order.City" class="form-control" />
+                <span asp-validation-for="@Model.order.City" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
-                <span asp-validation-for="State" class="text-danger"></span>
+                <label asp-for="@Model.order.State" class="control-label"></label>
+                <input asp-for="@Model.order.State" class="form-control" />
+                <span asp-validation-for="@Model.order.State" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Zip" class="control-label"></label>
-                <input asp-for="Zip" class="form-control" />
-                <span asp-validation-for="Zip" class="text-danger"></span>
+                <label asp-for="@Model.order.Zip" class="control-label"></label>
+                <input asp-for="@Model.order.Zip" class="form-control" />
+                <span asp-validation-for="@Model.order.Zip" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <input asp-controller="Orders" asp-action="Create"
-                       type="submit" value="Create" class="btn btn-primary" />
+                       type="submit" value="Place Order" class="btn btn-primary" />
             </div>
         </form>
     </div>
