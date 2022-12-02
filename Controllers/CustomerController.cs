@@ -69,30 +69,21 @@ namespace GroupProjectASP.Controllers
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
 
-            var checkoutViewModel = new CheckoutViewModel
+            var checkoutViewModel = new CheckoutViewModel 
             {
-                cartItems = _shoppingCart.ShoppingCartItems
-                 
+                cartItems = _shoppingCart.ShoppingCartItems,
+                PurchaseDate = DateTime.Now 
             };
-
-            //checkoutViewModel = new CheckoutViewModel
-            //{
-            //    order =  
-            //};
-            //foreach (var item in items)
-
-            //{
-            //    titleList.Add(item.Item);
-            //}
     
             var total = _shoppingCart.GetTotal();
-           // ViewBag.Name = titleList;
+           ViewBag.Date = DateTime.Now.ToShortDateString();
+            ViewBag.PDate = checkoutViewModel.PurchaseDate;
             ViewBag.Total = total;
-     
-
+            //ViewBag.Cart = checkoutViewModel.cartItems;
             return View(checkoutViewModel);
 
 
         }
+
     }
 }

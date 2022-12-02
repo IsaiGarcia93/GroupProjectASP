@@ -5,16 +5,17 @@
     ViewData["Title"] = "Checkout";
 }
 
+
 <h3>
     Thank you  @User.Identity.Name
 </h3>
-<h4> Your total is $ @ViewBag.Total</h4>
-@foreach (var item in Model.cartItems)
-            {
-    <h6> @item.Item.Title </h6>
-            }
+<h5>For ordering</h5>
 
-<h3>@ViewBag.Name</h3>
+@foreach (var item in Model.cartItems)
+{
+    <h5> @item.Quantity of "@item.Item.Title" </h5>
+}
+<h6> Your total is $@ViewBag.Total</h6>
 
 <hr />
 <div class="row">
@@ -23,12 +24,15 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@Model.order.OrderDate" class="control-label"></label>
-                <input type="date" asp-for="@Model.order.OrderDate" class="form-control" value="@DateTime.Now" />
+                <label>@ViewBag.Date</label>
+                <input type="hidden" asp-for="@Model.order.OrderDate" value="@ViewBag.Date" />
+                @*<input asp-for="@Model.order.OrderDate"   class="form-control" value="@ViewBag.Date "/>*@
                 <span asp-validation-for="@Model.order.OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.order.TotalPrice" class="control-label"></label>
-                <input asp-for="@Model.order.TotalPrice" class="form-control" value="@ViewBag.Total" />
+                <label>$@ViewBag.Total</label>
+                <input type="hidden" asp-for="@Model.order.TotalPrice" value="@ViewBag.Total" readonly />
                 <span asp-validation-for="@Model.order.TotalPrice" class="text-danger"></span>
             </div>
             <h4>Shipping Address</h4>

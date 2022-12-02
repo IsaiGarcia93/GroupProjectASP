@@ -13,10 +13,12 @@ namespace GroupProjectASP.Models
     {
         [Key]
         public int OrderID { get; set; }
+        [DisplayName("First Name")]
 
         [Required(ErrorMessage = "First name is required.")]
         [Column(TypeName = "nvarchar(50)")]
         public string FirstName { get; set; }
+        [DisplayName("Last Name")]
 
         [Required(ErrorMessage = "Last name is required.")]
         [Column(TypeName = "nvarchar(50)")]
@@ -38,9 +40,11 @@ namespace GroupProjectASP.Models
         [Column(TypeName = "nvarchar(6)")]
         public string Zip { get; set; }
 
-        [DisplayName("Date of Order")]
+        [DisplayName("Order Date: ")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
+
         public DateTime OrderDate { get; set; }
+        [DisplayName("Total Price: ")]
 
         public double TotalPrice { get; set; }
 
