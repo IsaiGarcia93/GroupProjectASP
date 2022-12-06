@@ -2,21 +2,24 @@
 
 @{
     ViewData["Title"] = "Home Page";
+
+    int i = 0;
 }
 
 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <a asp-action="Index" asp-controller="Customer"><img class="d-block w-100" src="~/Images/Art1.jpg" alt="Wonderful"  width="300" height="1000"></a>
-        </div>
-        <div class="carousel-item">
-            <a asp-action="Index" asp-controller="Customer"><img class="d-block w-100" src="~/Images/Art2.jpg" alt="Wonderful" width="300" height="1000"></a>
-        </div>
-        <div class="carousel-item">
-            <a asp-action="Index" asp-controller="Customer"><img class="d-block w-100" src="~/Images/Party.jpg" alt="Wonderful" width="300" height="1000"></a>
-        </div>
+        @foreach (var item in Model.Items)
+                {
+                    i++;
+                    var active = i == 1 ? "active" : "";
+            <div class="carousel-item @active">
+                <a asp-action="Index" asp-controller="Customer">
+                <img class="d-block w-100" src="~/Images/@item.ImageUpload" alt="@item.Title" width="300" height="1000">
+                </a>
+            </div>
+        }
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
