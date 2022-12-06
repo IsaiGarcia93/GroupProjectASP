@@ -49,5 +49,15 @@ namespace GroupProjectASP.Models
         public double TotalPrice { get; set; }
 
         public List<OrderDetails> OrderDetails { get; set; }
+
+        [DisplayName("Credit Card Number")]
+        //[RegularExpression(@"[0-9\s]{13,19}", ErrorMessage = "Please enter a valid credit card number.")]
+
+        public int CreditCardNumber { get; set; }
+
+        [DisplayName("Expiration Date")]
+        public int ExpirationDate { get; set; }
+        [DisplayName("Order List")]
+        public string CartString { get; set; }
     }
 }

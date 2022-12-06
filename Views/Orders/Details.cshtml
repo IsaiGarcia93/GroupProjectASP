@@ -59,6 +59,29 @@
         <dd class="col-sm-10">
             @Model.TotalPrice.ToString("c2")
         </dd>
+
+
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreditCardNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.CreditCardNumber.ToString()
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExpirationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.ExpirationDate
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CartString)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CartString)
+        </dd>
+
     </dl>
 
 </div>

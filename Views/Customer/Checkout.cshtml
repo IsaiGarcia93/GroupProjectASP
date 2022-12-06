@@ -15,7 +15,7 @@
 {
     <h5> @item.Quantity of "@item.Item.Title" </h5>
 }
-<h6> Your total is $@ViewBag.Total</h6>
+@*<h6> Your total is $@ViewBag.Total</h6>*@
 
 <hr />
 <div class="row">
@@ -67,6 +67,25 @@
                 <span asp-validation-for="@Model.order.Zip" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label asp-for="@Model.order.CreditCardNumber" class="control-label"></label>
+                <input ID="CCN "asp-for="@Model.order.CreditCardNumber"  pattern="[0-9\s]{13,19}"
+                       class="form-control" placeholder="xxxx xxxx xxxx xxxx" />
+                        <span asp-validation-for="@Model.order.CreditCardNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.order.ExpirationDate" class="control-label"></label>
+                <input asp-for="@Model.order.ExpirationDate" class="form-control"  placeholder="MM/YYYY"
+                    />
+                <span asp-validation-for="@Model.order.ExpirationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="@Model.order.CartString" class="control-label"></label>*@
+              
+                <input type="hidden" asp-for="@Model.order.CartString" value="@ViewBag.Cart " />
+                @*<span asp-validation-for="@Model.order.CartString" class="text-danger"></span>*@
+            </div>
             <div class="form-group">
                 <input asp-controller="Orders" asp-action="Create"
                        type="submit" value="Place Order" class="btn btn-primary" />
