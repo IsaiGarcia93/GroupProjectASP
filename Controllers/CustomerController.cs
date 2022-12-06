@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GroupProjectASP.Infrastructure;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace GroupProjectASP.Controllers
 {
@@ -16,11 +17,13 @@ namespace GroupProjectASP.Controllers
     {
         private readonly AppDBContext _context;
         private readonly ShoppingCart _shoppingCart;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public CustomerController(AppDBContext context, ShoppingCart shoppingCart)
+        public CustomerController(AppDBContext context, ShoppingCart shoppingCart, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
             _shoppingCart = shoppingCart;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -29,28 +32,43 @@ namespace GroupProjectASP.Controllers
             return View(await _context.Items.ToListAsync());
         }
 
-        public ViewResult Cart()
+        public IActionResult Cart()
         {
-            var items = _shoppingCart.GetShoppingCartItems();
-            _shoppingCart.ShoppingCartItems = items;
-
-            var cartViewModel = new CartViewModel
+            if (!_signInManager.IsSignedIn(User))
             {
-                ShoppingCart = _shoppingCart,
-                CartTotal = _shoppingCart.GetTotal()
-            };
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                var items = _shoppingCart.GetShoppingCartItems();
+                _shoppingCart.ShoppingCartItems = items;
 
-            return View(cartViewModel);
+                var cartViewModel = new CartViewModel
+                {
+                    ShoppingCart = _shoppingCart,
+                    CartTotal = _shoppingCart.GetTotal()
+                };
+
+                return View(cartViewModel);
+            }
+
         }
-
+        
         public RedirectToActionResult AddToCart(int id)
         {
-            var item = _context.Items.FirstOrDefault(c => c.ItemID == id);
-            if(item != null)
+            if (!_signInManager.IsSignedIn(User))
             {
-                _shoppingCart.AddToCart(item, 1);
+                return RedirectToAction("Login", "Account");
             }
-            return RedirectToAction("Cart");
+            else
+            {
+                var item = _context.Items.FirstOrDefault(c => c.ItemID == id);
+                if (item != null)
+                {
+                    _shoppingCart.AddToCart(item, 1);
+                }
+                return RedirectToAction("Cart");
+            }
         }
 
         public RedirectToActionResult DeleteItem(int id)
