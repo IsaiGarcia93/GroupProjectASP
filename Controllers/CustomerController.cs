@@ -113,9 +113,28 @@ namespace GroupProjectASP.Controllers
             ViewBag.Cart = cartString;
             ViewBag.List = list;
             return View(checkoutViewModel);
-
-
         }
 
+        [HttpPost]
+        public IActionResult Checkout(CheckoutViewModel checkout)
+        {
+            Order order = new Order();
+
+            order.OrderID = checkout.order.OrderID;
+            order.FirstName = checkout.order.FirstName;
+            order.LastName = checkout.order.LastName;
+            order.Address = checkout.order.Address;
+            order.City = checkout.order.City;
+            order.State = checkout.order.State;
+            order.Zip = checkout.order.Zip;
+            order.OrderDate = checkout.order.OrderDate;
+            order.TotalPrice = checkout.order.TotalPrice;
+            order.CreditCardNumber = checkout.order.CreditCardNumber;
+
+            _context.Add(order);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Order");
+        }
     }
 }
