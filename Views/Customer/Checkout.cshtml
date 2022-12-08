@@ -11,7 +11,7 @@
 </h3>
 <h5>For ordering</h5>
 
-@foreach (var item in Model.cartItems)
+@foreach (var item in ViewBag.List)
 {
     <h5> @item.Quantity of "@item.Item.Title" </h5>
 }
@@ -20,7 +20,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Checkout">
+        <form asp-action="Checkout" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@Model.order.OrderDate" class="control-label"></label>
@@ -66,23 +66,20 @@
                 <input asp-for="@Model.order.Zip" class="form-control" />
                 <span asp-validation-for="@Model.order.Zip" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="@Model.order.CreditCardNumber" class="control-label"></label>
-                <input ID="CCN "asp-for="@Model.order.CreditCardNumber"  pattern="[0-9\s]{13,19}"
-                       class="form-control" placeholder="xxxx xxxx xxxx xxxx" />
-                        <span asp-validation-for="@Model.order.CreditCardNumber" class="text-danger"></span>
+                <input asp-for="@Model.order.CreditCardNumber" class="form-control" />
+                <span asp-validation-for="@Model.order.CreditCardNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="@Model.order.ExpirationDate" class="control-label"></label>
-                <input asp-for="@Model.order.ExpirationDate" class="form-control"  placeholder="MM/YYYY"
-                    />
+                <input asp-for="@Model.order.ExpirationDate" class="form-control" placeholder="MM/YYYY" />
                 <span asp-validation-for="@Model.order.ExpirationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 @*<label asp-for="@Model.order.CartString" class="control-label"></label>*@
-              
+
                 <input type="hidden" asp-for="@Model.order.CartString" value="@ViewBag.Cart " />
                 @*<span asp-validation-for="@Model.order.CartString" class="text-danger"></span>*@
             </div>

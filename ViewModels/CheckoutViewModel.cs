@@ -9,7 +9,6 @@ namespace GroupProjectASP.ViewModels
     public class CheckoutViewModel
     {
         public Order order { get; set; }
-        public List<ShoppingCartItem> cartItems { get; set; }
-        public DateTime PurchaseDate { get; internal set; }
+        public DateTime PurchaseDate { get; set; }
     }
 }

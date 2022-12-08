@@ -89,18 +89,17 @@ namespace GroupProjectASP.Controllers
 
             var checkoutViewModel = new CheckoutViewModel 
             {
-                cartItems = _shoppingCart.ShoppingCartItems,
                 PurchaseDate = DateTime.Now 
             };
 
             var list = new List<ShoppingCartItem>();
-            foreach (var item in checkoutViewModel.cartItems)
+            foreach (var item in _shoppingCart.ShoppingCartItems)
             {
                 list.Add(item);
             }
 
             var cartString = "";
-            foreach (var item in checkoutViewModel.cartItems)
+            foreach (var item in _shoppingCart.ShoppingCartItems)
             {
                 cartString += ("("+ item.Quantity + ")" + item.Item.Title );
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using GroupProjectASP.Data;
 using GroupProjectASP.Models;
 using Microsoft.AspNetCore.Authorization;
+using GroupProjectASP.ViewModels;
 
 namespace GroupProjectASP.Controllers
 {
@@ -16,10 +17,12 @@ namespace GroupProjectASP.Controllers
     public class OrdersController : Controller
     {
         private readonly AppDBContext _context;
+        private readonly ShoppingCart _shoppingCart;
 
-        public OrdersController(AppDBContext context)
+        public OrdersController(AppDBContext context, ShoppingCart shoppingCart)
         {
             _context = context;
+            _shoppingCart = shoppingCart;
         }
         // GET: Orders
        
@@ -58,15 +61,29 @@ namespace GroupProjectASP.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,FirstName,LastName,Address,City,State,Zip,OrderDate,TotalPrice, CreditCardNumber, ExpirationDate, CartString")] Order order)
+        public async Task<IActionResult> Create(CheckoutViewModel checkoutViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(order);
+            Order order = new Order();
+
+            order.OrderID = checkoutViewModel.order.OrderID;
+            order.FirstName = checkoutViewModel.order.FirstName;
+            order.LastName = checkoutViewModel.order.LastName;
+            order.Address = checkoutViewModel.order.Address;
+            order.City = checkoutViewModel.order.City;
+            order.State = checkoutViewModel.order.State;
+            order.Zip = checkoutViewModel.order.Zip;
+            order.OrderDate = checkoutViewModel.order.OrderDate;
+            order.TotalPrice = checkoutViewModel.order.TotalPrice;
+            order.CreditCardNumber = checkoutViewModel.order.CreditCardNumber;
+            order.ExpirationDate = checkoutViewModel.order.ExpirationDate;
+
+            _shoppingCart.EmptyCart();
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+            //return View(checkoutViewModel);
         }
 
         // GET: Orders/Edit/5
