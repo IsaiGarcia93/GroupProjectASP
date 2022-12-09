@@ -10,5 +10,7 @@ namespace GroupProjectASP.ViewModels
     {
         public Order order { get; set; }
         public DateTime PurchaseDate { get; set; }
+        
+        public List<ShoppingCartItem> cartItems { get; set; }
     }
 }

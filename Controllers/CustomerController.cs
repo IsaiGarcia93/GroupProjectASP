@@ -89,6 +89,8 @@ namespace GroupProjectASP.Controllers
 
             var checkoutViewModel = new CheckoutViewModel 
             {
+                cartItems = _shoppingCart.ShoppingCartItems,
+
                 PurchaseDate = DateTime.Now 
             };
 
@@ -99,7 +101,7 @@ namespace GroupProjectASP.Controllers
             }
 
             var cartString = "";
-            foreach (var item in _shoppingCart.ShoppingCartItems)
+            foreach (var item in checkoutViewModel.cartItems)
             {
                 cartString += ("("+ item.Quantity + ")" + item.Item.Title );
 
@@ -129,6 +131,9 @@ namespace GroupProjectASP.Controllers
             order.OrderDate = checkout.order.OrderDate;
             order.TotalPrice = checkout.order.TotalPrice;
             order.CreditCardNumber = checkout.order.CreditCardNumber;
+
+
+            //order.CartString =checkout.order.CartString;
 
             _context.Add(order);
             _context.SaveChanges();

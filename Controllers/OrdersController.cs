@@ -77,15 +77,15 @@ namespace GroupProjectASP.Controllers
             order.CreditCardNumber = checkoutViewModel.order.CreditCardNumber;
             order.ExpirationDate = checkoutViewModel.order.ExpirationDate;
 
-            var cartString = "";
+            //var cartString = "";
+            order.CartString = checkoutViewModel.order.CartString;
+            //foreach (var item in _shoppingCart.GetShoppingCartItems())
+            //{
+            //    cartString += ("(" + item.Quantity + ")" + item.Item.Title);
 
-            foreach (var item in _shoppingCart.GetShoppingCartItems())
-            {
-                cartString += ("(" + item.Quantity + ")" + item.Item.Title);
+            //}
 
-            }
-
-            ViewBag.CartString = cartString;
+            //ViewBag.CartString = cartString;
 
             _shoppingCart.EmptyCart();
             _context.Orders.Add(order);
