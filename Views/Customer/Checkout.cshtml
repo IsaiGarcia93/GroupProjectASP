@@ -92,7 +92,7 @@
     <script>
         function MaxLength(txt, long) {
             var mLenght = new Number(long);
-            if (txt.value.length > (mLenght - 1)) {
+            if (txt.value.length > (mLenght)) {
                 txt.value = txt.value.substring(0, mLenght);
                 alert("There must be " + long + " numbers");
             }
