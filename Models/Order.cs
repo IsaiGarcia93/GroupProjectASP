@@ -52,7 +52,7 @@ namespace GroupProjectASP.Models
 
         [DisplayName("Credit Card Number")]
         //[RegularExpression(@"[0-9\s]{13,19}", ErrorMessage = "Please enter a valid credit card number.")]
-        public int CreditCardNumber { get; set; }
+        public long CreditCardNumber { get; set; }
 
         [DisplayName("Expiration Date")]
         public int ExpirationDate { get; set; }
