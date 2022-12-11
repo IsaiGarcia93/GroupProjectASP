@@ -103,7 +103,7 @@ namespace GroupProjectASP.Controllers
             var cartString = "";
             foreach (var item in checkoutViewModel.cartItems)
             {
-                cartString += ("("+ item.Quantity + ")" + item.Item.Title );
+                cartString += ("("+ item.Quantity + ")-" + item.Item.Title + " ");
 
             }
 
@@ -138,7 +138,7 @@ namespace GroupProjectASP.Controllers
             _context.Add(order);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Order");
+            return RedirectToAction("Complete", "Orders");
         }
     }
 }

@@ -13,13 +13,13 @@ namespace GroupProjectASP.Models
     {
         [Key]
         public int OrderID { get; set; }
-        [DisplayName("First Name")]
 
+        [DisplayName("First Name")]
         [Required(ErrorMessage = "First name is required.")]
         [Column(TypeName = "nvarchar(50)")]
         public string FirstName { get; set; }
-        [DisplayName("Last Name")]
 
+        [DisplayName("Last Name")]
         [Required(ErrorMessage = "Last name is required.")]
         [Column(TypeName = "nvarchar(50)")]
         public string LastName { get; set; }
@@ -42,16 +42,15 @@ namespace GroupProjectASP.Models
 
         [DisplayName("Order Date: ")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
-
         public DateTime OrderDate { get; set; }
-        [DisplayName("Total Price: ")]
 
+        [DisplayName("Total Price: ")]
         public double TotalPrice { get; set; }
 
         public List<OrderDetails> OrderDetails { get; set; }
 
         [DisplayName("Credit Card Number")]
-        //[RegularExpression(@"[0-9\s]{13,19}", ErrorMessage = "Please enter a valid credit card number.")]
+        [RegularExpression(@"[0-9\s]{13,19}", ErrorMessage = "Please enter a valid credit card number.")]
         public long CreditCardNumber { get; set; }
 
         [DisplayName("Expiration Date")]

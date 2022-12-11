@@ -77,22 +77,14 @@ namespace GroupProjectASP.Controllers
             order.CreditCardNumber = checkoutViewModel.order.CreditCardNumber;
             order.ExpirationDate = checkoutViewModel.order.ExpirationDate;
 
-            //var cartString = "";
             order.CartString = checkoutViewModel.order.CartString;
-            //foreach (var item in _shoppingCart.GetShoppingCartItems())
-            //{
-            //    cartString += ("(" + item.Quantity + ")" + item.Item.Title);
 
-            //}
-
-            //ViewBag.CartString = cartString;
 
             _shoppingCart.EmptyCart();
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Complete");
 
-            //return View(checkoutViewModel);
         }
 
         // GET: Orders/Edit/5
@@ -178,6 +170,12 @@ namespace GroupProjectASP.Controllers
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderID == id);
+        }
+
+        [HttpGet]
+        public IActionResult Complete()
+        {
+            return View();
         }
     }
 }

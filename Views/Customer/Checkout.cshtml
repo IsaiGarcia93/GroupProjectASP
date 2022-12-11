@@ -5,7 +5,6 @@
     ViewData["Title"] = "Checkout";
 }
 
-
 <h3>
     Thank you  @User.Identity.Name
 </h3>
@@ -15,86 +14,88 @@
 {
     <h5> @item.Quantity of "@item.Item.Title" </h5>
 }
-@*<h6> Your total is $@ViewBag.Total</h6>*@
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Checkout" method="post">
+        <form asp-controller="Orders" asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.OrderDate" class="control-label"></label>
                 <label>@ViewBag.Date</label>
                 <input type="hidden" asp-for="@Model.order.OrderDate" value="@ViewBag.Date" />
-                @*<input asp-for="@Model.order.OrderDate"   class="form-control" value="@ViewBag.Date "/>*@
                 <span asp-validation-for="@Model.order.OrderDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.TotalPrice" class="control-label"></label>
                 <label>$@ViewBag.Total</label>
                 <input type="hidden" asp-for="@Model.order.TotalPrice" value="@ViewBag.Total" readonly />
                 <span asp-validation-for="@Model.order.TotalPrice" class="text-danger"></span>
             </div>
             <h4>Shipping Address</h4>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.FirstName" class="control-label"></label>
                 <input asp-for="@Model.order.FirstName" class="form-control" />
                 <span asp-validation-for="@Model.order.FirstName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.LastName" class="control-label"></label>
                 <input asp-for="@Model.order.LastName" class="form-control" />
                 <span asp-validation-for="@Model.order.LastName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.Address" class="control-label"></label>
                 <input asp-for="@Model.order.Address" class="form-control" />
                 <span asp-validation-for="@Model.order.Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.City" class="control-label"></label>
                 <input asp-for="@Model.order.City" class="form-control" />
                 <span asp-validation-for="@Model.order.City" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.State" class="control-label"></label>
-                <input asp-for="@Model.order.State" class="form-control" />
+                <input asp-for="@Model.order.State" class="form-control" onkeyup="MaxLength(this, 2)" />
                 <span asp-validation-for="@Model.order.State" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.Zip" class="control-label"></label>
                 <input asp-for="@Model.order.Zip" class="form-control" />
                 <span asp-validation-for="@Model.order.Zip" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.CreditCardNumber" class="control-label"></label>
-                <input asp-for="@Model.order.CreditCardNumber" class="form-control" />
+                <input asp-for="@Model.order.CreditCardNumber" class="form-control" min="0" onkeyup="MaxLength(this, 16)"/>
                 <span asp-validation-for="@Model.order.CreditCardNumber" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div>
                 <label asp-for="@Model.order.ExpirationDate" class="control-label"></label>
                 <input asp-for="@Model.order.ExpirationDate" class="form-control" placeholder="MM/YYYY" />
                 <span asp-validation-for="@Model.order.ExpirationDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                @*<label asp-for="@Model.order.CartString" class="control-label"></label>*@
-
-                <input asp-for="@Model.order.CartString" value="@ViewBag.Cart " />
-                @*<span asp-validation-for="@Model.order.CartString" class="text-danger"></span>*@
+            <div>
+                <input type="hidden" asp-for="@Model.order.CartString" value="@ViewBag.Cart " />
             </div>
+            <br />
             <div class="form-group">
-                <input asp-controller="Orders" asp-action="Create"
-                       type="submit" value="Place Order" class="btn btn-primary" />
+                <input type="submit" value="Place Order" class="btn btn-primary" />
+                <a class="btn btn-dark" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function MaxLength(txt, long) {
+            var mLenght = new Number(long);
+            if (txt.value.length > (mLenght - 1)) {
+                txt.value = txt.value.substring(0, mLenght);
+                alert("There must be " + long + " numbers");
+            }
+        }
+    </script>
 }
